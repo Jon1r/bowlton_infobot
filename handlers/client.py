@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from create_bot import dp, bot
 from keyboards import kb_menu, kb_tasks, kb_providers, kb_yfrfiles, kb_parts, kb_followup, kb_produce, kb_hardware, \
-    kb_electrica, kb_documents, kb_googledocs
+    kb_electrica, kb_documents, kb_googledocs, kb_tasklist
 from data_base import sqlite_db
 
 all = None
@@ -90,8 +90,8 @@ async def command_yfrfiles(message: types.Message):
 
 async def command_tasks(message: types.Message):
     await bot.send_message(message.from_user.id,
-                           'Можешь посмотреть свои задачи или узнать ближайшую цель всей команды!',
-                           reply_markup=kb_tasks)
+                           'Можешь посмотреть свои задачи или поставить задачу кому-то!',
+                           reply_markup=kb_tasklist)
 
 
 async def command_providers(message: types.Message):
