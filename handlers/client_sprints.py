@@ -88,6 +88,14 @@ async def command_followup_chat(message: types.Message, state: FSMContext):
     global chat
     if message.text == 'Electronics':
         chat = '-1001657253379'
+    elif message.text == 'Software':
+        chat = '-1001657253379'
+    elif message.text == 'Design':
+        chat = '-1001657253379'
+    elif message.text == 'Decor':
+        chat = '-1001657253379'
+    elif message.text == 'Other':
+        chat = '-1001657253379'
     async with state.proxy() as data:
         data['chat'] = chat
         data['date'] = message.date
@@ -113,7 +121,7 @@ async def command_followup_todo(message: types.Message, state: FSMContext):
 async def command_followup_discuss(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['discuss'] = message.text
-        await bot.send_message(data['chat'], '#follow_up ' + data['who'] + ' #week' + str(data['date']) + '\n' + '<b>Тема:</b>\n' + data['done'] +
+        await bot.send_message(data['chat'], '#follow_up ' + data['who'] + ' ' + str(data['date']) + '\n' + '<b>Тема:</b>\n' + data['done'] +
                                                                               '\n<b>Принятые решения:</b>\n' + data['todo'] +
                                                                               '\n<b>Вопросы на обсуждение:</b>\n' + data['discuss'])
 
@@ -127,6 +135,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_followup, lambda message: "\U0001F4DDFollow-up" in message.text,
                                 state=None)
     dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Sprints.all_states)
+    dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Followup.all_states)
     dp.register_message_handler(command_followup_chat, state=Followup.chat)
 
     dp.register_message_handler(command_sprint_done, state=Sprints.done)

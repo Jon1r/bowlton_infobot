@@ -4,6 +4,8 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 btn_chats = KeyboardButton('Chats')
 btn_mytasks = KeyboardButton('MyTask')
 btn_keypoints = KeyboardButton('KeyPoints')
+btn_other = KeyboardButton('Other')
+main_menu = KeyboardButton('Main menu')
 
 # Раздел Providers->
 btn_hardware = KeyboardButton('Hardware')
@@ -55,13 +57,13 @@ kb_providers = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_in_del_providers = InlineKeyboardMarkup(row_width=2)
 
 
-kb_in_del_providers.add(btn_del_providers).add(btn_change_providers)
-kb_doc.add(btn_doverennost).add(btn_reqvisits)
-kb_googledocs.add(btn_genplan).add(btn_bom).add(btn_drive)
+kb_in_del_providers.add(btn_del_providers).add(btn_change_providers).add(main_menu)
+kb_doc.add(btn_doverennost).add(btn_reqvisits).add(btn_other).add(main_menu)
+kb_googledocs.add(btn_genplan).add(btn_bom).add(btn_drive).add(btn_other).add(main_menu)
 
-kb_providers.add(btn_hardware).add(btn_electrica).add(btn_parts).add(btn_produced)
+kb_providers.add(btn_hardware).add(btn_electrica).add(btn_parts).add(btn_produced).add(main_menu)
 
-kb_hardware.add(btn_motors).add(btn_reductors).add(btn_drivers).add(btn_servo)
-kb_electrica.add(btn_wires).add(btn_connectors).add(btn_rele)
-kb_parts.add(btn_profiles).add(btn_screws).add(btn_corner).add(btn_sheets)
-kb_produces.add(btn_lazeracril).add(btn_lazermetal)
+kb_hardware.add(btn_motors).add(btn_reductors).add(btn_drivers).add(btn_servo).add(btn_other).add(main_menu)
+kb_electrica.add(btn_wires).add(btn_connectors).add(btn_rele).add(btn_other).add(main_menu)
+kb_parts.add(btn_profiles).add(btn_screws).add(btn_corner).add(btn_sheets).add(btn_other).add(main_menu)
+kb_produces.add(btn_lazeracril).add(btn_lazermetal).add(btn_other).add(main_menu)

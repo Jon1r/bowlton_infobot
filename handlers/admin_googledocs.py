@@ -4,13 +4,13 @@ from aiogram.dispatcher.filters import Text
 from aiogram import types, Dispatcher
 from create_bot import dp, bot
 from data_base import sqlite_db
-from keyboards import kb_googledocs
+from keyboards import kb_googledocs, kb_menu
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-class InputDocs(StatesGroup):
+class InputGDocs(StatesGroup):
     Which = State()
-    file = State()
+    site = State()
     description = State()
 
 
@@ -18,26 +18,31 @@ class Delgoogledocs(StatesGroup):
     Whatt = State()
 
 
+async def command_menu(message: types.Message, state: FSMContext):
+    await bot.send_message(message.from_user.id, 'Запутался?)', reply_markup=kb_menu)
+    await state.finish()
+
+
 # @dp.message_handler(commands=['add'])
-async def make_changes_command(message: types.Message):
-    await bot.send_message(message.from_user.id, 'What do u want?', reply_markup=kb_googledocs)
-    await InputDocs.Which.set()
+async def add_google_doc(message: types.Message):
+    await bot.send_message(message.from_user.id, 'Ссылку на какой документ ты хочешь прислать?', reply_markup=kb_googledocs)
+    await InputGDocs.Which.set()
     await message.delete()
 
 
 # @dp.message_handler(state=InputDocs.Which)
 async def load_which(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['Which'] = message.text
-    await bot.send_message(message.from_user.id, 'Вышли документ')
-    await InputDocs.next()
+        data['Which'] = message.text.lower()
+    await bot.send_message(message.from_user.id, 'Вышли ссылку')
+    await InputGDocs.next()
 
 
-async def load_file(message, state: FSMContext):
+async def load_file(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['file'] = message.text.lower()
+        data['site'] = message.text.lower()
     await bot.send_message(message.from_user.id, 'Добавь коментарий')
-    await InputDocs.next()
+    await InputGDocs.next()
 
 
 async def add_comment(message: types.Message, state: FSMContext):
@@ -45,13 +50,14 @@ async def add_comment(message: types.Message, state: FSMContext):
         data['description'] = message.text
     await sqlite_db.sql_add_googledocs(state)
 
+    await bot.send_message(message.from_user.id, 'Сохранено', reply_markup=kb_menu)
     await state.finish()
 
 
 # Удаление из БД
 @dp.message_handler(commands=['del_googledoc'])
 async def make_changes_command(message: types.Message):
-    await bot.send_message(message.from_user.id, 'Выбери документ, который хочешь удалить', reply_markup=kb_doc)
+    await bot.send_message(message.from_user.id, 'Выбери документ, который хочешь удалить', reply_markup=kb_googledocs)
     await Delgoogledocs.Whatt.set()
     await message.delete()
 
@@ -73,9 +79,10 @@ async def del_provider(callback_query: types.CallbackQuery):
 
 
 def register_handlers_admin_dc(dp: Dispatcher):
-    dp.register_message_handler(make_changes_command, commands=['add_googledoc'], state=None)
-    dp.register_message_handler(load_which, state=InputDocs.Which)
-    dp.register_message_handler(load_file, content_types=["document"], state=InputDocs.file)
-    dp.register_message_handler(add_comment, state=InputDocs.description)
+    dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=InputGDocs.all_states)
+    dp.register_message_handler(add_google_doc, commands=['add_googledoc'], state=None)
+    dp.register_message_handler(load_which, state=InputGDocs.Which)
+    dp.register_message_handler(load_file, state=InputGDocs.site)
+    dp.register_message_handler(add_comment, state=InputGDocs.description)
 
     dp.register_message_handler(load_what_del, state=Delgoogledocs.Whatt)

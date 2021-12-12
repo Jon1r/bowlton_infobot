@@ -20,6 +20,11 @@ class DELproviders(StatesGroup):
     Whatt = State()
 
 
+async def command_menu(message: types.Message, state: FSMContext):
+    await bot.send_message(message.from_user.id, 'Запутался?)', reply_markup=kb_menu)
+    await state.finish()
+
+
 @dp.message_handler(commands=['add_providers'])
 async def make_changes_command(message: types.Message):
     await bot.send_message(message.from_user.id, 'What do u want?', reply_markup=kb_providers)
@@ -121,6 +126,7 @@ async def del_provider(callback_query: types.CallbackQuery):
 
 # Регистрация хендлеров
 def register_handlers_admin_lk(dp: Dispatcher):
+    dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Providers.all_states)
     dp.register_message_handler(cm_start, state=Providers.type)
     dp.register_message_handler(cm_delete, state=DELproviders.type)
     dp.register_message_handler(load_what, state=Providers.Whatt)
