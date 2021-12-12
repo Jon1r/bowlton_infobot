@@ -60,7 +60,7 @@ async def sql_add_yfrfiles(state):
 
 
 async def sql_del_yfrfiles(data):
-    cur.execute('DELETE FROM YFRfiles WHERE whatt==?', (data,))
+    cur.execute('DELETE FROM YFRfiles WHERE comment==?', (data,))
     base.commit()
 
 
@@ -72,6 +72,7 @@ async def sql_add_googledocs(state):
 
 
 async def sql_del_googledocs(data):
+    print(data)
     cur.execute('DELETE FROM GoogleDocs WHERE whatt==?', (data,))
     base.commit()
 

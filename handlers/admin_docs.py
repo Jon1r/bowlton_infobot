@@ -19,8 +19,8 @@ class DelYFRfiles(StatesGroup):
 
 
 # @dp.message_handler(commands=['add'])
-async def make_changes_command(message: types.Message):
-    await bot.send_message(message.from_user.id, 'What do u want?', reply_markup=kb_doc)
+async def add_file(message: types.Message):
+    await bot.send_message(message.from_user.id, 'Какой документ ты хочешь добавить?', reply_markup=kb_doc)
     await InputDocs.Which.set()
     await message.delete()
 
@@ -63,19 +63,19 @@ async def load_what_del(message: types.Message, state: FSMContext):
     for row in all:
         await bot.send_message(message.from_user.id, row[0] + " - " + row[2],
                                reply_markup=InlineKeyboardMarkup().\
-                               add(InlineKeyboardButton(text='Delete',callback_data='del ' + row[0])))
+                               add(InlineKeyboardButton(text='Delete',callback_data='fdel ' + row[2])))
 
     await state.finish()
 
 
-@dp.callback_query_handler(Text(startswith='del '))
-async def del_provider(callback_query: types.CallbackQuery):
-    await sqlite_db.sql_del_yfrfiles(callback_query.data.replace('del ', ''))
+@dp.callback_query_handler(Text(startswith='fdel '))
+async def del_file(callback_query: types.CallbackQuery):
+    await sqlite_db.sql_del_yfrfiles(callback_query.data.replace('fdel ', ''))
     await callback_query.answer(text='Удалена', show_alert=True)
 
 
 def register_handlers_admin_dc(dp: Dispatcher):
-    dp.register_message_handler(make_changes_command, commands=['add_file'], state=None)
+    dp.register_message_handler(add_file, commands=['add_file'], state=None)
     dp.register_message_handler(load_which, state=InputDocs.Which)
     dp.register_message_handler(load_file, content_types=["document"], state=InputDocs.file)
     dp.register_message_handler(add_comment, state=InputDocs.description)

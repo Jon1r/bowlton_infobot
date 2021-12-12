@@ -113,14 +113,14 @@ async def load_what_del(message: types.Message, state: FSMContext):
     for row in all:
         await bot.send_message(message.from_user.id, row[2] + " - " + row[3],
                                reply_markup=InlineKeyboardMarkup().\
-                               add(InlineKeyboardButton(text='Delete',callback_data='del ' + row[2])))
+                               add(InlineKeyboardButton(text='Delete',callback_data='pdel ' + row[2])))
 
     await state.finish()
 
 
-@dp.callback_query_handler(Text(startswith='del '))
+@dp.callback_query_handler(Text(startswith='pdel '))
 async def del_provider(callback_query: types.CallbackQuery):
-    await sqlite_db.sql_del_providers(callback_query.data.replace('del ', ''))
+    await sqlite_db.sql_del_providers(callback_query.data.replace('pdel ', ''))
     await callback_query.answer(text='Удалена', show_alert=True)
 
 

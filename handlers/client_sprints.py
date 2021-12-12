@@ -125,7 +125,7 @@ async def command_followup_discuss(message: types.Message, state: FSMContext):
                                                                               '\n<b>Принятые решения:</b>\n' + data['todo'] +
                                                                               '\n<b>Вопросы на обсуждение:</b>\n' + data['discuss'])
 
-    await bot.send_message(message.from_user.id, 'записал')
+    await bot.send_message(message.from_user.id, 'Записал')
     await sqlite_db.sql_add_followup(state)
     await state.finish()
 
