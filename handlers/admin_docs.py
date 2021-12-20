@@ -28,7 +28,7 @@ async def add_file(message: types.Message):
 # @dp.message_handler(state=InputDocs.Which)
 async def load_which(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['Which'] = message.text
+        data['Which'] = message.text.lower()
     await bot.send_message(message.from_user.id, 'Вышли документ')
     await InputDocs.next()
 
