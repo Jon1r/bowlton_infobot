@@ -29,7 +29,7 @@ async def command_start(message: types.Message):
                                        reply_markup=kb_menu)
 
         except:
-            await message.reply('All questions u can ask in privat message')
+            await message.reply('Все общение с ботом происходит только в личной беседе.\n http://t.me/Bowlton_Info_Bot')
 
     else:
 
@@ -39,14 +39,14 @@ async def command_start(message: types.Message):
             await sqlite_db.sql_add_team(message.from_user.id, message.from_user.first_name)
 
         except:
-            await message.reply('All questions u can ask in privat message')
+            await message.reply('Все общение с ботом происходит только в личной беседе.\n http://t.me/Bowlton_Info_Bot')
     await message.delete()
 
 
 async def command_help(message: types.Message):
     await bot.send_message(message.from_user.id, 'Привет, <b>пользователь</b>!\n '
                                                  '\nЯ помогу тебе с поиском любой информации.\n'
-                                                 'Questions - Здесь ты можешь задать любой интересующий вопрос и указать срочность его решения.\n'
+                                                 'Follow-up - Здесь ты можешь написать резюме любой встречи.\n'
                                                  '\nTasks - Здесь ты сможешь посмотреть свои задачи на спринт, поставить задачу другому человеку, а так же посмотреть глобальный сценарий, к которому нужно стремиться.\n'
                                                  '\nProviders - Здесь ты сможешь найти поставщиков по всем закупкам и услугам, которыми мы пользовались ранее.\n'
                                                  '\nYFRfiles - Здесь вы найдете различные файлы связанные с фирмой: доверенность, реквизиты, ссылки на все гугл диски.', reply_markup=kb_menu)
