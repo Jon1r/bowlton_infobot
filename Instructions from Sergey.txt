@@ -1,0 +1,18 @@
+#Подключение к серверу
+ssh root@167.71.60.114
+
+#Перезапуск
+systemctl restart bowlton_bot.service
+
+#остановка
+systemctl stop bowlton_bot.service
+
+#старт
+systemctl start bowlton_bot.service
+
+#Обновление
+Переходишь в папку
+cd bowlton_bot
+И дальше
+git pull origin
+
