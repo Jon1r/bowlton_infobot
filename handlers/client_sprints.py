@@ -92,15 +92,15 @@ async def command_followup(message: types.Message, state: FSMContext):
 async def command_followup_chat(message: types.Message, state: FSMContext):
     global chat
     if message.text == 'Electronics':
-        chat = '-1001657253379'
+        chat = '-1001442465891'
     elif message.text == 'Software':
-        chat = '-1001657253379'
+        chat = '-1001442465891'
     elif message.text == 'Design':
-        chat = '-1001657253379'
+        chat = '-1001442465891'
     elif message.text == 'Decor':
-        chat = '-1001657253379'
+        chat = '-1001442465891'
     elif message.text == 'Other':
-        chat = '-1001657253379'
+        chat = '-1001442465891'
     async with state.proxy() as data:
         data['chat'] = chat
         data['date'] = message.date
