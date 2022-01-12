@@ -16,3 +16,4 @@ cd bowlton_bot
 И дальше
 git pull origin
 
+bowlton_infobot

@@ -7,6 +7,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 storage = MemoryStorage()
 
-bot = Bot(token=os.getenv('TOKEN'), parse_mode=types.ParseMode.HTML)
-#bot = Bot(token=config.TOKEN, parse_mode=types.ParseMode.HTML)
+#bot = Bot(token=os.getenv('TOKEN'), parse_mode=types.ParseMode.HTML)
+bot = Bot(token=config.TOKEN, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot, storage=storage)
