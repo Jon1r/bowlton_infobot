@@ -100,4 +100,4 @@ kb_produce.add(btn_lazermetal).add(btn_lazeracril).add(btn_other).add(main_menu)
 kb_followup.add(btn_electronics).insert(btn_design).add(btn_software).insert(btn_decor).add(btn_other).add(main_menu)
 kb_documents.add(btn_doverennost).add(btn_reqvisits).add(btn_other).add(main_menu)
 
-kb_tasklist.add(btn_todo).insert(btn_doing).add(btn_notaprove).add(btn_uaprove).add(btn_uaprove)
+kb_tasklist.add(btn_todo).insert(btn_doing).add(btn_notaprove).add(btn_uaprove).add(btn_aprove)

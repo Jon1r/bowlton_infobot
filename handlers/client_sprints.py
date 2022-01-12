@@ -35,6 +35,11 @@ async def command_menu(message: types.Message, state: FSMContext):
     await state.finish()
 
 
+async def command_cancel(message: types.Message, state: FSMContext):
+    await bot.send_message(message.from_user.id, 'Окай)', reply_markup=kb_menu)
+    await state.finish()
+
+
 # Включерние режима спринтов
 async def command_sprint(message: types.Message, state: FSMContext):
     await message.delete()
@@ -70,7 +75,7 @@ async def command_sprint_discuss(message: types.Message, state: FSMContext):
                                                                               '\n<b>Буду делать:</b>\n' + data['todo'] +
                                                                               '\n<b>Вопросы на обсуждение:</b>\n' + data['discuss'])
 
-    await bot.send_message(message.from_user.id, 'записал', reply_markup='menu')
+    await bot.send_message(message.from_user.id, 'записал', reply_markup=kb_menu)
     await sqlite_db.sql_add_followup(state)
     await state.finish()
 
@@ -125,7 +130,7 @@ async def command_followup_discuss(message: types.Message, state: FSMContext):
                                                                               '\n<b>Принятые решения:</b>\n' + data['todo'] +
                                                                               '\n<b>Вопросы на обсуждение:</b>\n' + data['discuss'])
 
-    await bot.send_message(message.from_user.id, 'Записал', reply_markup='menu')
+    await bot.send_message(message.from_user.id, 'Записал', reply_markup=kb_menu)
     await sqlite_db.sql_add_followup(state)
     await state.finish()
 
@@ -135,7 +140,9 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_followup, lambda message: "\U0001F4DDFollow-up" in message.text,
                                 state=None)
     dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Sprints.all_states)
+    dp.register_message_handler(command_cancel, lambda message: "/start" in message.text, state=Sprints.all_states)
     dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Followup.all_states)
+    dp.register_message_handler(command_cancel, lambda message: "/start" in message.text, state=Followup.all_states)
     dp.register_message_handler(command_followup_chat, state=Followup.chat)
 
     dp.register_message_handler(command_sprint_done, state=Sprints.done)

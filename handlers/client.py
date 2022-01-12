@@ -74,6 +74,11 @@ async def command_menu(message: types.Message, state: FSMContext):
     await state.finish()
 
 
+async def command_start_1(message: types.Message, state: FSMContext):
+    await bot.send_message(message.from_user.id, 'Запутался?)', reply_markup=kb_menu)
+    await state.finish()
+
+
 async def command_menu_1(message: types.Message):
     await bot.send_message(message.from_user.id, 'Запутался?)', reply_markup=kb_menu)
 
@@ -92,6 +97,7 @@ async def command_tasks(message: types.Message):
     await bot.send_message(message.from_user.id,
                            'Можешь посмотреть свои задачи или поставить задачу кому-то!',
                            reply_markup=kb_tasklist)
+    await bot.send_message(message.from_user.id, 'Эта вкладка пока не работает, если она тебе нужна, то напиши Пете)')
 
 
 async def command_providers(message: types.Message):
@@ -174,6 +180,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_help, commands=['help'], state=None)
     dp.register_message_handler(command_admin, commands=['admin'], state=None)
     dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=FSMClient.all_states)
+    dp.register_message_handler(command_start_1, lambda message: "/start" in message.text, state=FSMClient.all_states)
     dp.register_message_handler(command_menu_1, lambda message: "Main menu" in message.text, state=None)
 
     dp.register_message_handler(command_tasks, lambda message: "\U0001F3AFTasks" in message.text, state=None)
