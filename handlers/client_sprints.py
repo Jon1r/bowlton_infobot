@@ -45,7 +45,7 @@ async def command_sprint(message: types.Message, state: FSMContext):
     await message.delete()
     async with state.proxy() as data:
         data['type'] = 'sprint'
-        data['chat'] = '-1001657253379'
+        data['chat'] = '-1001442465891'
         data['date'] = message.date.isocalendar().week
         data['who'] = message.from_user.first_name
     await Sprints.done.set()

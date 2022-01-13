@@ -38,12 +38,11 @@ async def command_tasks(message: types.Message, state: FSMContext):
     await bot.send_message(message.from_user.id, 'Что было сделано?', reply_markup=types.ReplyKeyboardRemove())
 
 
-
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_tasks, lambda message: 'NewTasks' in message.text, state=None)
 #    dp.register_message_handler(command_followup, lambda message: "\U0001F4DDFollow-up" in message.text, state=None)
 #    dp.register_message_handler(command_menu, lambda message: "Main menu" in message.text, state=Sprints.all_states)
-    dp.register_message_handler(command_tasks, state=None)
+#    dp.register_message_handler(command_tasks, state=None)
 
 #    dp.register_message_handler(command_sprint_done, state=Sprints.done)
  #   dp.register_message_handler(command_sprint_todo, state=Sprints.todo)
