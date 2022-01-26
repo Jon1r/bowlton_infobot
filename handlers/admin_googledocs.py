@@ -40,7 +40,7 @@ async def load_which(message: types.Message, state: FSMContext):
 
 async def load_file(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['site'] = message.text.lower()
+        data['site'] = message.text
     await bot.send_message(message.from_user.id, 'Добавь коментарий')
     await InputGDocs.next()
 

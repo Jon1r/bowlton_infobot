@@ -12,7 +12,7 @@ systemctl start bowlton_bot.service
 
 #Обновление
 Переходишь в папку
-cd bowlton_bot
+cd bowlton_bot/bowlton_infobot
 И дальше
 git pull origin
 
