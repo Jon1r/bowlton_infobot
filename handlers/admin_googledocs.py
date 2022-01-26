@@ -63,7 +63,7 @@ async def make_changes_command(message: types.Message):
 
 
 async def load_what_del(message: types.Message, state: FSMContext):
-    all = await sqlite_db.sql_take_info_providers(message.text.lower())
+    all = await sqlite_db.sql_take_info_googledocs(message.text.lower())
     for row in all:
         await bot.send_message(message.from_user.id, row[0] + " - " + row[2],
                                reply_markup=InlineKeyboardMarkup().\
